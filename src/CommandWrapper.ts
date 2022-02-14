@@ -7,6 +7,7 @@ import util from 'util';
 import glob0 from 'glob';
 import TestResultPrinter from '@skills17/test-result-printer';
 import ReportReader from './ReportReader';
+import storeTestRun from './LocalHistory';
 
 const glob = util.promisify(glob0);
 
@@ -63,6 +64,10 @@ export default class CommandWrapper {
         printFooter: true,
         printPoints: this.config.arePointsDisplayed(),
       });
+    }
+
+    if (this.config.isLocalHistoryEnabled()) {
+      storeTestRun(this.config, this.reportReader.testRun);
     }
 
     process.exit(exitCode);

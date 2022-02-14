@@ -1,10 +1,8 @@
 ------------       RESULT       ------------
 
 Summary:
-  Basic Functionality.+: 3/4 points
-    ✔ test1 > test
-    ✔ test2 > test
-    ✖ test3 > test1
-    ✔ test3 > test2
+  Local History.+: 1/2 points
+    ✔ Foo > test
+    ✖ Bar > test
 
 Info: The detailed test and error information is visible above the result summary.

@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { ChildProcess } from 'child_process';
-import { executeApp, executeNewman, stripOutput } from './utils';
+import { executeApp, executeNewman } from './utils';
 
 describe('integration tests', () => {
   // get all integration tests
@@ -18,25 +18,27 @@ describe('integration tests', () => {
 
   afterAll(() => {
     // kill app
-    app.kill('SIGINT');
+    app.kill();
   });
 
   it.each(integrationTests)(
     '%s - console reporter',
     async (test) => {
       // execute newman in the subdirectory
-      let { output } = await executeNewman(test, 'run');
-      output = stripOutput(output);
+      const { output } = await executeNewman(test, 'run');
+      const resultOutput = output
+        .substring(output.indexOf('------------       RESULT       ------------'))
+        .trim();
 
       // update expected output if required
       if (process.env.UPDATE_EXPECTED_OUTPUT === '1') {
-        fs.writeFileSync(path.resolve(__dirname, test, 'expected.txt'), output);
+        fs.writeFileSync(path.resolve(__dirname, test, 'expected.txt'), resultOutput);
       }
 
       // read expected output
       const expectedOutput = fs.readFileSync(path.resolve(__dirname, test, 'expected.txt'));
 
-      expect(output).toEqual(expectedOutput.toString().trim());
+      expect(resultOutput).toEqual(expectedOutput.toString().trim());
     },
     60000,
   );
@@ -45,18 +47,20 @@ describe('integration tests', () => {
     '%s - json reporter',
     async (test) => {
       // execute newman in the subdirectory
-      let { output } = await executeNewman(test, 'run --json');
-      output = stripOutput(output);
+      const { output } = await executeNewman(test, 'run --json');
+      const resultOutput = output
+        .substring(output.indexOf('------------       RESULT       ------------'))
+        .trim();
 
       // update expected output if required
       if (process.env.UPDATE_EXPECTED_OUTPUT === '1') {
-        fs.writeFileSync(path.resolve(__dirname, test, 'expected.json'), output.trim());
+        fs.writeFileSync(path.resolve(__dirname, test, 'expected.json'), resultOutput);
       }
 
       // read expected output
       const expectedOutput = fs.readFileSync(path.resolve(__dirname, test, 'expected.json'));
 
-      expect(output).toEqual(expectedOutput.toString().trim());
+      expect(resultOutput).toEqual(expectedOutput.toString().trim());
     },
     60000,
   );

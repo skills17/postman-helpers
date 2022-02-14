@@ -30,6 +30,8 @@ export function executeNewman(
 }
 
 export function executeApp(): ChildProcess {
+  // eslint-disable-next-line no-console
+  console.log('Starting test integration server on http://localhost:3000');
   const child = exec(`node app-server.mjs`, {
     cwd: __dirname,
     timeout: 60000,
@@ -38,12 +40,4 @@ export function executeApp(): ChildProcess {
   child.stderr?.pipe(process.stderr);
 
   return child;
-}
-
-export function stripOutput(output: string): string {
-  let cleanedOutput = output.trim();
-  cleanedOutput = cleanedOutput.replace(/\d+ms/g, () => '000ms');
-  cleanedOutput = cleanedOutput.replace(/\d+s/g, () => '000s');
-  cleanedOutput = cleanedOutput.replace(/\d+µs/g, () => '000µs');
-  return cleanedOutput;
 }
