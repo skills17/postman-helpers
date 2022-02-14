@@ -1,0 +1,73 @@
+{
+  "name": "@skills17/postman-helpers",
+  "version": "0.0.1",
+  "description": "Provides Postman helpers for usage in a skills competition environment.",
+  "main": "lib/index.js",
+  "files": [
+    "lib",
+    "bin"
+  ],
+  "bin": {
+    "skills17-postman": "./bin/skills17-postman"
+  },
+  "scripts": {
+    "build": "npm run build:js && npm run build:types",
+    "build:js": "babel src --out-dir lib --delete-dir-on-start --extensions \".ts\"",
+    "build:js:watch": "npm run build:js -- --watch --verbose",
+    "build:types": "tsc --emitDeclarationOnly --project tsconfig.types.json",
+    "lint": "tsc --noEmit && eslint . --ext .ts --ext .js --max-warnings 0",
+    "lint:fix": "npm run lint -- --fix",
+    "test": "jest",
+    "test:watch": "npm test -- --watch",
+    "test:update": "UPDATE_EXPECTED_OUTPUT=1 npm run test",
+    "prepublishOnly": "npm run lint && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skills17/postman-helpers.git"
+  },
+  "author": "Sebastian Häni <haeni.sebastian@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/skills17/postman-helpers/issues"
+  },
+  "homepage": "https://github.com/skills17/postman-helpers#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.13.16",
+    "@babel/core": "^7.14.0",
+    "@babel/preset-env": "^7.14.1",
+    "@babel/preset-typescript": "^7.13.0",
+    "@types/cross-spawn": "^6.0.2",
+    "@types/jest": "^27.0.1",
+    "@types/node": "^16.7.10",
+    "@types/rimraf": "^3.0.0",
+    "@types/uniqid": "^5.3.0",
+    "@typescript-eslint/eslint-plugin": "^5.5.0",
+    "@typescript-eslint/parser": "^5.5.0",
+    "babel-jest": "^27.1.0",
+    "eslint": "^8.4.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "express": "^4.17.2",
+    "jest": "^27.1.0",
+    "mocha": "^9.1.1",
+    "newman": "^5.3.1",
+    "prettier": "^2.3.0",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.2.4"
+  },
+  "dependencies": {
+    "@skills17/task-config": "^3.0.1",
+    "@skills17/test-result": "^2.1.0",
+    "@skills17/test-result-printer": "^2.1.2",
+    "cross-spawn": "^7.0.3",
+    "glob": "^7.2.0",
+    "npm-run-path": "^4.0.1",
+    "uniqid": "^5.3.0"
+  },
+  "peerDependencies": {
+    "newman": "^5.3.0"
+  }
+}

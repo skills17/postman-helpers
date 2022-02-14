@@ -1,0 +1,45 @@
+{
+  "testResults": [
+    {
+      "group": "Basic Functionality.+",
+      "points": 3,
+      "maxPoints": 4,
+      "strategy": "add",
+      "manualCheck": false,
+      "tests": [
+        {
+          "name": "test1 > test",
+          "points": 1,
+          "maxPoints": 1,
+          "successful": true,
+          "required": false,
+          "manualCheck": false
+        },
+        {
+          "name": "test2 > test",
+          "points": 1,
+          "maxPoints": 1,
+          "successful": true,
+          "required": false,
+          "manualCheck": false
+        },
+        {
+          "name": "test3 > test1",
+          "points": 0,
+          "maxPoints": 1,
+          "successful": false,
+          "required": false,
+          "manualCheck": false
+        },
+        {
+          "name": "test3 > test2",
+          "points": 1,
+          "maxPoints": 1,
+          "successful": true,
+          "required": false,
+          "manualCheck": false
+        }
+      ]
+    }
+  ]
+}

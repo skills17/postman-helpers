@@ -1,0 +1,8 @@
+#!/usr/bin/env node
+const CommandWrapper = require('../lib/CommandWrapper').default; // eslint-disable-line @typescript-eslint/no-var-requires
+
+const cmd = new CommandWrapper(process.argv.slice(2));
+
+(async () => {
+  await cmd.process();
+})();

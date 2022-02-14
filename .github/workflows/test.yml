@@ -1,0 +1,27 @@
+name: CI - test
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: .devcontainer
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Start containers
+      run: docker-compose up -d
+    - name: Change permissions
+      run: docker-compose exec -T app chown -R node:node /workspaces/postman-helpers
+    - name: Install dependencies
+      run: docker-compose exec -T --workdir /workspaces/postman-helpers --user node app npm ci
+    - name: Build library
+      run: docker-compose exec -T --workdir /workspaces/postman-helpers --user node app npm run build
+    - name: Test
+      run: docker-compose exec -T --workdir /workspaces/postman-helpers --user node app npm test

@@ -1,0 +1,20 @@
+{
+  "name": "skills17-postman-helpers",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "workspaceFolder": "/workspaces/postman-helpers",
+  "remoteUser": "node",
+  "extensions": [
+    "dbaeumer.vscode-eslint",
+    "redhat.vscode-yaml"
+  ],
+  "settings": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+    "editor.tabSize": 2,
+    "editor.rulers": [100]
+  },
+  "postCreateCommand": "npm install"
+}

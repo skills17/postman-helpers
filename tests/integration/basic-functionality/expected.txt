@@ -1,0 +1,100 @@
+Starting newman...
+newman
+
+Basic Functionality
+
+❏ folder1
+↳ test1
+  GET http://localhost:3000/test1 [200 OK, 239B, 000ms]
+  ✓  test
+
+↳ test2
+  GET http://localhost:3000/test2 [404 Not Found, 416B, 000ms]
+  ✓  test
+
+↳ test3
+  GET http://localhost:3000/test3 [404 Not Found, 416B, 000ms]
+  1. test1
+  ✓  test2
+
+┌─────────────────────────┬──────────────────┬──────────────────┐
+│                         │         executed │           failed │
+├─────────────────────────┼──────────────────┼──────────────────┤
+│              iterations │                1 │                0 │
+├─────────────────────────┼──────────────────┼──────────────────┤
+│                requests │                3 │                0 │
+├─────────────────────────┼──────────────────┼──────────────────┤
+│            test-scripts │                3 │                0 │
+├─────────────────────────┼──────────────────┼──────────────────┤
+│      prerequest-scripts │                0 │                0 │
+├─────────────────────────┼──────────────────┼──────────────────┤
+│              assertions │                4 │                1 │
+├─────────────────────────┴──────────────────┴──────────────────┤
+│ total run duration: 000ms                                     │
+├───────────────────────────────────────────────────────────────┤
+│ total data received: 300B (approx)                            │
+├───────────────────────────────────────────────────────────────┤
+│ average response time: 000ms [min: 000ms, max: 000ms, s.d.: 000ms] │
+└───────────────────────────────────────────────────────────────┘
+
+  #  failure         detail                                                
+                                                                           
+ 1.  AssertionError  test1                                                 
+                     expected response to have status code 200 but got 404 
+                     at assertion:0 in test-script                         
+                     inside "folder1 / test3"                              
+newman
+
+Basic Functionality Extra
+
+❏ folder1
+↳ test1
+  GET http://localhost:3000/test1 [200 OK, 239B, 000ms]
+  ✓  test
+
+↳ test2
+  GET http://localhost:3000/test2 [404 Not Found, 416B, 000ms]
+  ✓  test
+
+↳ test3
+  GET http://localhost:3000/test3 [404 Not Found, 416B, 000ms]
+  1. test1
+  ✓  test2
+
+┌─────────────────────────┬──────────────────┬──────────────────┐
+│                         │         executed │           failed │
+├─────────────────────────┼──────────────────┼──────────────────┤
+│              iterations │                1 │                0 │
+├─────────────────────────┼──────────────────┼──────────────────┤
+│                requests │                3 │                0 │
+├─────────────────────────┼──────────────────┼──────────────────┤
+│            test-scripts │                3 │                0 │
+├─────────────────────────┼──────────────────┼──────────────────┤
+│      prerequest-scripts │                0 │                0 │
+├─────────────────────────┼──────────────────┼──────────────────┤
+│              assertions │                4 │                1 │
+├─────────────────────────┴──────────────────┴──────────────────┤
+│ total run duration: 000ms                                     │
+├───────────────────────────────────────────────────────────────┤
+│ total data received: 300B (approx)                            │
+├───────────────────────────────────────────────────────────────┤
+│ average response time: 000ms [min: 000ms, max: 000ms, s.d.: 000ms] │
+└───────────────────────────────────────────────────────────────┘
+
+  #  failure         detail                                                
+                                                                           
+ 1.  AssertionError  test1                                                 
+                     expected response to have status code 200 but got 404 
+                     at assertion:0 in test-script                         
+                     inside "folder1 / test3"                              
+
+------------       RESULT       ------------
+
+Summary:
+  Basic Functionality.+: 3/4 points
+    ✔ test1 > test
+    ✔ test2 > test
+    ✖ test3 > test1
+    ✔ test3 > test2
+
+Info: The detailed test and error information is visible above the result summary.
