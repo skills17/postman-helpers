@@ -2,8 +2,7 @@
 
 This package provides Postman helpers for usage in a skills competition environment. It includes:
 - Custom output formatter
-- Commands
-- Automatic task file server
+- Opinionated Newman run command for multiple collections at once
 - ... and more
 
 ## Table of contents
@@ -18,7 +17,7 @@ This package provides Postman helpers for usage in a skills competition environm
 - Node `16` or greater
 - Postman `9.0` or greater
 
-To install this package, simply run the following command:
+To install this package, run the following command:
 
 ```bash
 npm install @skills17/postman-helpers
@@ -28,8 +27,8 @@ It is suggested to add the following npm scripts:
 
 ```json
   "scripts": {
-    "test": "skills17-postman run <collection>",
-    "test:json": "skills17-postman run --json <collection>"
+    "test": "skills17-postman run",
+    "test:json": "skills17-postman run --json"
   },
 ```
 
@@ -37,8 +36,7 @@ This will provide the following commands:
 - `npm test` - Run all tests once and show a nice output with the awarded points (useful for the competitors to see their points)
 - `npm run test:json` - Run all tests once and get a json output (useful for automated marking scripts)
 
-For international championships, it is also strongly recommended setting the [`--timezone` argument](#cli) to the timezone in which the championship takes place.
-This helps to avoid time discrepancies between the development environment and the championship-site.
+The runner will look for exported Postman collections in a `collections/` folder and run them all.
 
 ## Usage
 
@@ -48,7 +46,7 @@ See the [`@skills17/task-config`](https://github.com/skills17/task-config#config
 
 ### CLI
 
-As seen in the install instructions, the `skills17-postman` command is available.
+As seen in the installation instructions, the `skills17-postman` command is available.
 
 It is a thin wrapper around the actual `newman` command which prepares the task and configures Newman correctly.
 
