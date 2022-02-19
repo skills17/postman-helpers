@@ -1,24 +1,12 @@
 import path from 'path';
 import fs from 'fs';
 import rimraf from 'rimraf';
-import { ChildProcess } from 'child_process';
-import { executeApp, executeNewman } from './utils';
+import { executeNewman } from './utils';
 
 const historyDir = path.resolve(__dirname, 'local-history', '.history');
 const disabledHistoryDir = path.resolve(__dirname, 'local-history-disabled', '.history');
 
 describe('local history', () => {
-  let app: ChildProcess;
-  beforeAll(() => {
-    // serve app
-    app = executeApp();
-  });
-
-  afterAll(() => {
-    // kill app
-    app.kill();
-  });
-
   beforeEach(() => {
     if (fs.existsSync(historyDir)) {
       rimraf.sync(historyDir);
