@@ -1,6 +1,6 @@
 {
   "name": "@skills17/postman-helpers",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Provides Postman helpers for usage in a skills competition environment.",
   "main": "lib/index.js",
   "files": [
