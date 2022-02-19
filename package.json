@@ -17,7 +17,8 @@
     "build:types": "tsc --emitDeclarationOnly --project tsconfig.types.json",
     "lint": "tsc --noEmit && eslint . --ext .ts --ext .js --max-warnings 0",
     "lint:fix": "npm run lint -- --fix",
-    "test": "jest",
+    "start-test-server": "node tests/integration/app-server.mjs",
+    "test": "start-server-and-test start-test-server http://localhost:3000/test1 jest",
     "test:watch": "npm test -- --watch",
     "test:update": "UPDATE_EXPECTED_OUTPUT=1 npm run test",
     "prepublishOnly": "npm run lint && npm run build"
@@ -56,6 +57,7 @@
     "newman": "^5.3.1",
     "prettier": "^2.3.0",
     "rimraf": "^3.0.2",
+    "start-server-and-test": "^1.14.0",
     "typescript": "^4.2.4"
   },
   "dependencies": {

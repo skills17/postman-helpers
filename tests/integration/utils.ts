@@ -1,6 +1,7 @@
 import path from 'path';
-import { ChildProcess, exec } from 'child_process';
+import { exec } from 'child_process';
 
+// eslint-disable-next-line import/prefer-default-export
 export function executeNewman(
   testName: string,
   args: string,
@@ -27,17 +28,4 @@ export function executeNewman(
     // wait until the process finishes
     cmd.on('exit', (code: number) => resolve({ exitCode: code, output }));
   });
-}
-
-export function executeApp(): ChildProcess {
-  // eslint-disable-next-line no-console
-  console.log('Starting test integration server on http://localhost:3000');
-  const child = exec(`node app-server.mjs`, {
-    cwd: __dirname,
-    timeout: 60000,
-  });
-  child.stdout?.pipe(process.stdout);
-  child.stderr?.pipe(process.stderr);
-
-  return child;
 }

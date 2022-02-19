@@ -1,24 +1,12 @@
 import fs from 'fs';
 import path from 'path';
-import { ChildProcess } from 'child_process';
-import { executeApp, executeNewman } from './utils';
+import { executeNewman } from './utils';
 
 describe('integration tests', () => {
   // get all integration tests
   const integrationTests = fs.readdirSync(__dirname).filter((file) => {
     const fileInfo = fs.statSync(path.resolve(__dirname, file));
     return fileInfo.isDirectory();
-  });
-
-  let app: ChildProcess;
-  beforeAll(() => {
-    // serve app
-    app = executeApp();
-  });
-
-  afterAll(() => {
-    // kill app
-    app.kill();
   });
 
   it.each(integrationTests)(
