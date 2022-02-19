@@ -1,10 +1,10 @@
-type NewmanItem = {
+export type NewmanItem = {
   id: string;
   name: string;
   item?: NewmanItem[];
 };
 
-type NewmanReport = {
+export type NewmanReport = {
   collection: {
     item: NewmanItem[];
     info: {

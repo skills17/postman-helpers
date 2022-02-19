@@ -2,6 +2,7 @@ import TaskConfig from '@skills17/task-config';
 import { TestRun } from '@skills17/test-result';
 import path from 'path';
 import fs from 'fs';
+import { NewmanItem, NewmanReport } from './types';
 
 export default class ReportReader {
   public readonly testRun: TestRun;
@@ -46,16 +47,34 @@ export default class ReportReader {
     // build request id to name lookup map recursively
     const requests = ReportReader.buildRequestNames(newmanReport);
 
-    // record test results
+    // newman includes requests sent in pre-request scripts as an identical execution items,
+    // which leads to duplicate requests. We extract tests first and deduplicating executions, and then record them.
+
+    // extract tests
+    const tests: {
+      [id: string]: { fullName: string; testName: string; extra: boolean; successful: boolean };
+    } = {};
     newmanReport?.run?.executions?.forEach((execution) => {
       execution.assertions?.forEach((assertion) => {
-        this.testRun.recordTest(
-          `${requests[execution.item.id].fullName} > ${assertion.assertion}`,
-          `${requests[execution.item.id].testName} > ${assertion.assertion}`,
-          requests[execution.item.id].isExtra,
-          !assertion.error,
-        );
+        const testIdentifier = `${execution.item.id}-${assertion.assertion}`;
+        if (tests[testIdentifier]) {
+          if (assertion.error) {
+            tests[testIdentifier].successful = false;
+          }
+        } else {
+          tests[testIdentifier] = {
+            fullName: `${requests[execution.item.id].fullName} > ${assertion.assertion}`,
+            testName: `${requests[execution.item.id].testName} > ${assertion.assertion}`,
+            extra: requests[execution.item.id].isExtra,
+            successful: !assertion.error,
+          };
+        }
       });
+    });
+
+    // record test results
+    Object.values(tests).forEach((test) => {
+      this.testRun.recordTest(test.fullName, test.testName, test.extra, test.successful);
     });
   }
 
