@@ -1,5 +1,7 @@
 # skills17/postman-helpers
 
+> ⚠️ **Warning:** This package is deprecated. Use more modern alternatives, like Jest.
+
 This package provides Postman helpers for usage in a skills competition environment. It includes:
 - Custom output formatter
 - Opinionated Newman run command for multiple collections at once
